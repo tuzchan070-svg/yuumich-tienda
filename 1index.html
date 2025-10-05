@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tienda Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #8B0000 0%, #FF1493 25%, #FFD700 50%, #228B22 75%, #8B0000 100%);
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+            border-bottom: 3px solid #FFD700;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .facebook {
+            background: linear-gradient(135deg, #1877f2, #42a5f5);
+        }
+
+        .tiktok {
+            background: linear-gradient(135deg, #000000, #25f4ee, #fe2c55);
+        }
+
+        .whatsapp-business {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #B8860B;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Georgia', serif;
+            letter-spacing: 2px;
+        }
+
+        .logo::before {
+            content: '🌳';
+            font-size: 1.5rem;
+            color: #B8860B;
+            filter: sepia(1) hue-rotate(25deg) saturate(1.2);
+        }
+
+        .logo:hover {
+            color: #DAA520;
+            text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.4);
+            transform: scale(1.02);
+        }
+
+        .logo:hover::before {
+            transform: scale(1.1);
+            filter: sepia(1) hue-rotate(35deg) saturate(1.5);
+        }
+
+        .logo-subtitle {
+            font-size: 0.7rem;
+            color: #B8860B;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-left: 2rem;
+            opacity: 0.8;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #228B22;
+            transform: scale(1.05);
+            text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.5);
+        }
+
+        .cart-btn {
+            background: linear-gradient(135deg, #FFD700, #FF1493);
+            color: white;
+            border: 2px solid #228B22;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
+
+        .cart-btn:hover {
+            background: linear-gradient(135deg, #228B22, #8B0000);
+            border-color: #FFD700;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(34, 139, 34, 0.4);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e53e3e;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .brand-description {
+            text-align: center;
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .brand-description h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #f7fafc;
+        }
+
+        .brand-description p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-top: 4px solid #FFD700;
+            border-bottom: 4px solid #228B22;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-top-color: #FF1493;
+            border-bottom-color: #8B0000;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #8B0000;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-price {
+            color: #FFD700;
+            text-shadow: 1px 1px 2px rgba(139, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #228B22, #FFD700);
+            color: white;
+            border: 2px solid #8B0000;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #8B0000, #FF1493);
+            border-color: #228B22;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(139, 0, 0, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            background: #1e7e34;
+            border-color: #FFD700;
+            box-shadow: 0 6px 15px rgba(34, 139, 34, 0.3);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: #22c55e;
+            transform: translateY(-2px);
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+        }
+
+        .cart-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-btn {
+            background: #FF1493;
+            color: white;
+            border: 2px solid #FFD700;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #228B22;
+            border-color: #8B0000;
+            transform: scale(1.1);
+            box-shadow: 0 3px 10px rgba(34, 139, 34, 0.4);
+        }
+
+        .cart-total {
+            text-align: center;
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(34, 139, 34, 0.1));
+            border-radius: 10px;
+            border: 2px solid #FFD700;
+            color: #8B0000;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #8B0000, #FF1493);
+            color: white;
+            padding: 15px;
+            border: 3px solid #FFD700;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+        }
+
+        .checkout-btn:hover {
+            background: linear-gradient(135deg, #228B22, #FFD700);
+            border-color: #8B0000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 139, 34, 0.4);
+            color: #333;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #666;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .nav-left {
+                flex-direction: row;
+                gap: 1rem;
+                align-items: center;
+            }
+            
+            .logo-container {
+                align-items: center;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .logo-subtitle {
+                font-size: 0.6rem;
+                margin-left: 0;
+            }
+            
+            .social-buttons {
+                gap: 0.4rem;
+                flex-wrap: wrap;
+            }
+            
+            .social-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="nav-left">
+                <div class="logo-container">
+                    <a href="#" class="logo">Yu'umich</a>
+                    <div class="logo-subtitle">• Artesanalmente Mexicano •</div>
+                </div>
+                <div class="social-buttons">
+                    <a href="https://facebook.com/TuPaginaYuumich" target="_blank" class="social-btn facebook" title="Síguenos en Facebook">
+                        📘
+                    </a>
+                    <a href="https://instagram.com/yuumich_oficial" target="_blank" class="social-btn instagram" title="Síguenos en Instagram">
+                        📷
+                    </a>
+                    <a href="https://tiktok.com/@yuumich_oficial" target="_blank" class="social-btn tiktok" title="Síguenos en TikTok">
+                        🎵
+                    </a>
+                    <a href="https://wa.me/529831062879" target="_blank" class="social-btn whatsapp-business" title="WhatsApp Business">
+                        💬
+                    </a>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <button class="cart-btn" onclick="toggleCart()">
+                🛒 Carrito
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Yu'umich - Sabores Artesanales</h1>
+                <p>🌿 "Dios de la Fruta" en Maya | Productos 100% mexicanos</p>
+            </div>
+        </section>
+
+        <section class="brand-description">
+            <div class="container">
+                <h2>Yu'umich - "Dios de la Fruta" en Maya</h2>
+                <p>
+                    Honramos las tradiciones ancestrales mayas con nuestros productos artesanales únicos. 
+                    Desde vinos con sabores de frutas exóticas, mermeladas caseras, salsas tradicionales 
+                    hasta cervezas artesanales. Cada producto está elaborado con ingredientes 100% naturales, 
+                    respetando los procesos tradicionales que nos conectan con nuestras raíces mayas y mexicanas.
+                    Yu'umich representa la abundancia y la bendición de la tierra.
+                </p>
+            </div>
+        </section>
+
+        <section id="productos" class="container">
+            <div class="products-grid" id="productsGrid">
+                <!-- Los productos se cargan dinámicamente -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal del Carrito -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Carrito de Compras</h2>
+                <button class="close-cart" onclick="toggleCart()">&times;</button>
+            </div>
+            <div id="cartItems"></div>
+            <div class="cart-total" id="cartTotal">Total: $0</div>
+            <button class="checkout-btn" onclick="checkout()">💳 Finalizar Pedido</button>
+        </div>
+    </div>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="#" class="whatsapp-float" id="whatsappFloat" title="Contactar por WhatsApp">
+        📱
+    </a>
+
+    <script>
+        // Configuración (PERSONALIZAR ESTOS DATOS)
+        const CONFIG = {
+            whatsappNumber: '529831062879', // Tu número de WhatsApp con código de país
+            mercadoPagoAccessToken: 'TU_ACCESS_TOKEN_AQUI', // Tu Access Token de MercadoPago
+            storeName: "Yu'umich - Dios de la Fruta"
+        };
+
+        // Base de datos completa de productos Yuumich
+        const products = [
+            // VINOS ARTESANALES
+            {
+                id: 1,
+                name: 'Yuumich Vino Sabor Huaya',
+                description: 'Vino artesanal mexicano 100% natural con el exótico sabor de la huaya. Una experiencia única que combina tradición maya y sabores tropicales.',
+                price: 350.00,
+                category: 'vinos',
+                image: 'https://drive.google.com/uc?export=view&id=19LLf72ZDZLy_UnOnCpBkzxaPbUXnhCcz'
+            },
+            {
+                id: 2,
+                name: 'Yuumich Vino Sabor Jamaica',
+                description: 'Vino artesanal mexicano con el distintivo sabor de la flor de jamaica. Proceso de fermentación única que resalta notas florales y frutales.',
+                price: 325.00,
+                category: 'vinos',
+                image: 'https://drive.google.com/uc?export=view&id=AGREGA_AQUI_EL_ID_DE_JAMAICA'
+            },
+            {
+                id: 3,
+                name: 'Yuumich Vino Sabor Piña',
+                description: 'Vino artesanal con el refrescante sabor tropical de la piña. Elaborado con técnicas tradicionales mexicanas para un sabor auténtico y natural.',
+                price: 340.00,
+                category: 'vinos',
+                image: 'https://drive.google.com/uc?export=view&id=AGREGA_AQUI_EL_ID_DE_PIÑA'
+            },
+            {
+                id: 4,
+                name: 'Yuumich Vino Sabor Pitahaya',
+                description: 'Vino artesanal mexicano con el exquisito sabor de la pitahaya. Una combinación perfecta entre tradición vinícola y sabores exóticos mexicanos.',
+                price: 365.00,
+                category: 'vinos',
+                image: 'https://drive.google.com/uc?export=view&id=AGREGA_AQUI_EL_ID_DE_PITAHAYA'
+            },
+            {
+                id: 5,
+                name: 'Yuumich Vino Sabor Piña Premium',
+                description: 'Edición premium de nuestro vino de piña con proceso de fermentación extendido. Notas más complejas y sabor más intenso.',
+                price: 385.00,
+                category: 'vinos',
+                image: 'https://drive.google.com/uc?export=view&id=1WxW0ZIugYS-KVK5hiZ3kpRAO0d0ry4uc'
+            },
+            {
+                id: 6,
+                name: 'Yuumich Vino Sabor Huaya Premium',
+                description: 'Nuestra edición especial de vino de huaya con proceso artesanal refinado. Un homenaje a los sabores tradicionales mexicanos.',
+                price: 375.00,
+                category: 'vinos',
+                image: 'https://drive.google.com/uc?export=view&id=AGREGA_AQUI_EL_ID_DE_HUAYA_PREMIUM'
+            },
+            
+            // MERMELADAS ARTESANALES
+            {
+                id: 7,
+                name: 'Yuumich Mermelada de Jamaica',
+                description: 'Deliciosa mermelada elaborada con flor de jamaica 100% natural. Perfecta para acompañar pan, postres o como ingrediente gourmet.',
+                price: 95.00,
+                category: 'mermeladas',
+                image: 'https://images.unsplash.com/photo-1557909114-f355e63f57fd?w=400&h=400&fit=crop&crop=center'
+            },
+            {
+                id: 8,
+                name: 'Yuumich Mermelada de Pitahaya',
+                description: 'Exótica mermelada de pitahaya con un sabor único y suave. Elaborada de forma artesanal con frutas frescas seleccionadas.',
+                price: 110.00,
+                category: 'mermeladas',
+                image: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=400&h=400&fit=crop&crop=center'
+            },
+            
+            // SALSAS ARTESANALES
+            {
+                id: 9,
+                name: 'Yuumich Salsa Macha',
+                description: 'Tradicional salsa macha mexicana con chiles secos, cacahuates y ajonjolí. Sabor intenso y textura crujiente que realza cualquier platillo.',
+                price: 85.00,
+                category: 'salsas',
+                image: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=400&h=400&fit=crop&crop=center'
+            },
+            {
+                id: 10,
+                name: 'Yuumich Salsa Habanero Ardiente',
+                description: 'Salsa súper picante elaborada con chiles habaneros frescos. Para los amantes del picante extremo. ¡Úsala con precaución!',
+                price: 75.00,
+                category: 'salsas',
+                image: 'https://images.unsplash.com/photo-1586057825991-daba265e1729?w=400&h=400&fit=crop&crop=center'
+            },
+            
+            // CERVEZAS HAPPY BUNNY
+            {
+                id: 11,
+                name: 'Happy Bunny Cerveza Oscura',
+                description: 'Cerveza artesanal oscura con notas tostadas y caramelizadas. Cuerpo robusto y sabor complejo, perfecta para maridar con carnes y quesos.',
+                price: 65.00,
+                category: 'cervezas',
+                image: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400&h=400&fit=crop&crop=center'
+            },
+            {
+                id: 12,
+                name: 'Happy Bunny Cerveza Clara',
+                description: 'Cerveza artesanal clara y refrescante con sabor ligero y equilibrado. Ideal para cualquier momento del día y perfecta para el clima cálido.',
+                price: 60.00,
+                category: 'cervezas',
+                image: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400&h=400&fit=crop&crop=center'
+            }
+        ];
+
+        // Carrito de compras
+        let cart = [];
+
+        // Cargar productos en la página
+        function loadProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x400/667eea/ffffff?text=Imagen+No+Disponible'">
+                    </div>
+                    <h3 class="product-title">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-price">${product.price}</div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart(${product.id})">
+                            Agregar al Carrito
+                        </button>
+                        <button class="btn btn-whatsapp" onclick="contactWhatsApp(${product.id})">
+                            WhatsApp
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Agregar producto al carrito
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCartUI();
+            showNotification('Producto agregado al carrito');
+        }
+
+        // Actualizar interfaz del carrito
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            updateCartModal();
+        }
+
+        // Actualizar modal del carrito
+        function updateCartModal() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">Tu carrito está vacío</div>';
+                cartTotal.textContent = 'Total: $0';
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="item-info">
+                        <strong>${item.name}</strong><br>
+                        $${item.price} x ${item.quantity}
+                    </div>
+                    <div class="item-controls">
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                        <button class="quantity-btn" onclick="removeFromCart(${item.id})" style="background: #e53e3e; margin-left: 10px;">×</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+        }
+
+        // Actualizar cantidad
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartUI();
+                }
+            }
+        }
+
+        // Remover del carrito
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        // Toggle modal del carrito
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Contactar por WhatsApp (producto específico)
+        function contactWhatsApp(productId) {
+            const product = products.find(p => p.id === productId);
+            const message = `Hola! Me interesa el producto: *${product.name}* - $${product.price}%0A%0A${product.description}`;
+            const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${message}`;
+            window.open(url, '_blank');
+        }
+
+        // Checkout optimizado para WhatsApp + MercadoPago manual
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+
+            // Mostrar mensaje informativo al cliente
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            showCheckoutModal(total);
+        }
+
+        // Modal informativo de checkout
+        function showCheckoutModal(total) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 3000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    padding: 2rem;
+                    border-radius: 15px;
+                    max-width: 500px;
+                    width: 90%;
+                    text-align: center;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                ">
+                    <h2 style="color: #667eea; margin-bottom: 1rem;">🛒 Finalizar Pedido</h2>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">
+                        Tu pedido será enviado por WhatsApp con todos los detalles.<br>
+                        <strong>Total: ${total.toFixed(2)}</strong>
+                    </p>
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: #f8f9ff; border-radius: 10px;">
+                        <h3 style="margin-bottom: 0.5rem; color: #333;">📋 Proceso de compra:</h3>
+                        <ul style="text-align: left; margin: 0; padding-left: 1.5rem; line-height: 1.8;">
+                            <li>✅ Enviaremos tu pedido por WhatsApp</li>
+                            <li>📞 Confirmaremos disponibilidad contigo</li>
+                            <li>💳 Te enviaremos link de pago seguro</li>
+                            <li>🚚 Coordinaremos la entrega</li>
+                        </ul>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" 
+                                style="flex: 1; padding: 12px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                            Cancelar
+                        </button>
+                        <button onclick="confirmOrder(); this.parentElement.parentElement.parentElement.remove();" 
+                                style="flex: 1; padding: 12px; border: none; background: #25D366; color: white; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                            📱 Enviar por WhatsApp
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // Confirmar y enviar pedido
+        function confirmOrder() {
+            sendDetailedOrderToWhatsApp();
+            
+            // Limpiar carrito después de enviar
+            cart = [];
+            updateCartUI();
+            toggleCart(); // Cerrar modal del carrito
+            
+            showNotification('¡Pedido enviado! Te contactaremos pronto por WhatsApp');
+        }
+
+        // Enviar pedido detallado por WhatsApp
+        function sendDetailedOrderToWhatsApp() {
+            const orderItems = cart.map(item => 
+                `• ${item.name}%0A  Cantidad: ${item.quantity} botella${item.quantity > 1 ? 's' : ''}%0A  Precio unitario: ${item.price}%0A  Subtotal: ${(item.price * item.quantity).toFixed(2)}`
+            ).join('%0A%0A');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const orderDate = new Date().toLocaleDateString('es-MX');
+            
+            const message = `🍷 *NUEVO PEDIDO - YUUMLEH VINOS*%0A` +
+                          `📅 Fecha: ${orderDate}%0A%0A` +
+                          `📋 *PRODUCTOS:*%0A${orderItems}%0A%0A` +
+                          `💰 *TOTAL: ${total.toFixed(2)}*%0A%0A` +
+                          `📝 *Siguiente paso:*%0A` +
+                          `Por favor confirma disponibilidad y envía el link de pago de MercadoPago.%0A%0A` +
+                          `📍 ¿Necesitas mi dirección para la entrega?%0A` +
+                          `⏰ ¿Cuál es el tiempo de entrega?`;
+            
+            const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${message}`;
+            window.open(url, '_blank');
+        }
+
+        // Configurar WhatsApp flotante
+        function setupWhatsAppFloat() {
+            const whatsappFloat = document.getElementById('whatsappFloat');
+            whatsappFloat.href = `https://wa.me/${CONFIG.whatsappNumber}?text=Hola! Me gustaría obtener más información sobre sus productos.`;
+        }
+
+        // Mostrar notificación
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: #4CAF50;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 3000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Cerrar modal al hacer click fuera
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleCart();
+            }
+        });
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            setupWhatsAppFloat();
+            updateCartUI();
+        });
+
+        // Añadir animación CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
